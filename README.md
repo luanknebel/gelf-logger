@@ -3,7 +3,7 @@
 The Graylog Extended Log Format (GELF) is a modern, structured log format designed to overcome the limitations of 
 traditional syslog used to send customs logs to Graylog Servers recommended for applications servers.
 
-Learn more about GELF on the [Graylog Documentation](https://go2docs.graylog.org/current/gelf/index.html).
+Learn more about GELF on the [Graylog Documentation](https://go2docs.graylog.org/current/getting_in_log_data/gelf.html).
 
 
 ## Advantages of GELF
