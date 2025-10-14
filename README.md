@@ -102,8 +102,8 @@ public class Main {
  - Wildfly/JBoss Integration:
 
  
-Wildfly/JBoss allows you to configure custom handlers in your logging subsystem.</br>
-To send standard server log output to a log monitoring server, you need to add the gelf-loggin library to your subsystem.
+Wildfly/JBoss allows to configure custom handlers on logging subsystem.</br>
+To send standard server log output to a log monitoring server, you need to add the gelf-loggin library to subsystem.
 
 Obs: The **JBOSS_HOME** variable is a root Wildfly/JBoss installation path.
 
