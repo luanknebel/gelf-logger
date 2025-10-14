@@ -34,6 +34,13 @@
 		</license>
 	</licenses>
 
+	<scm>
+	    <connection>scm:git:https://github.com/luanknebel/gelf-logger.git</connection>
+	    <developerConnection>scm:git:git@github.com:luanknebel/gelf-logger.git</developerConnection>
+	    <url>https://github.com/luanknebel/gelf-logger</url>
+	    <tag>1.1.21</tag>
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
