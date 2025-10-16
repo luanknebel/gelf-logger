@@ -23,17 +23,6 @@ Key features include:
 The available libraries use Log4J as the default GELF log appender (incompatible with more recent versions of JBoss custom-handlers).</br>
 I couldn't find any standard logging customization libraries compatible with the latest Wildfly/JBoss versions (>= 35) + JDK 21 for sending logs to Graylog servers, so I decided to implement a library that natively integrates with application servers using the Java Logging API so we could add custom log handlers for this purpose.
 
-## Dependency:
-Google gson is unique dependency necessary to run this library in your environment:
-
-```
-<dependency>
-	<groupId>com.google.code.gson</groupId>
-	<artifactId>gson</artifactId>
-	<version>2.13.2</version>
-</dependency>
-```
-
 ## Compile Project:
 
 This project required Java >= 21
@@ -91,7 +80,7 @@ public class Main {
   "timestamp": 1760402047.565,
   "level": 6,
   "facility": "gelf-java",
-  "_logger": "org.graylog.logging.Main",
+  "_logger": "dev.knebelhub.logging.Main",
   "_thread": "main",
   "_instanceName": "application-name",
   "_key1": "value1",
@@ -102,8 +91,8 @@ public class Main {
  - Wildfly/JBoss Integration:
 
  
-Wildfly/JBoss allows you to configure custom handlers in your logging subsystem.</br>
-To send standard server log output to a log monitoring server, you need to add the gelf-loggin library to your subsystem.
+Wildfly/JBoss allows to configure custom handlers on logging subsystem.</br>
+To send standard server log output to a log monitoring server, you need to add the gelf-loggin library to subsystem.
 
 Obs: The **JBOSS_HOME** variable is a root Wildfly/JBoss installation path.
 
@@ -144,7 +133,7 @@ Obs: Don't forget to replace graylogHost and graylogPort to your server logs.
 $JBOSS_HOME/bin/jboss-cli.sh <<EOF
 embed-server --std-out=echo --server-config=standalone.xml
 batch
-/subsystem=logging/custom-handler=GRAYLOG:add(class="org.graylog.logging.GelfLoggingHandler", module="org.graylog", properties={"graylogHost"=>"localhost","graylogPort"=>"12201","instanceName"=>"\${jboss.node.name}"})
+/subsystem=logging/custom-handler=GRAYLOG:add(class="dev.knebelhub.logging.GelfLoggingHandler", module="org.graylog", properties={"graylogHost"=>"localhost","graylogPort"=>"12201","instanceName"=>"\${jboss.node.name}"})
 /subsystem=logging/root-logger=ROOT:add-handler(name="GRAYLOG")
 run-batch
 stop-embedded-server
