@@ -31,7 +31,6 @@ This project required Java >= 21
 mvn clean package
 ```
 
-
 ## Property Configurations:
 
  - **graylogPort**: UDP/TCP GELF Graylog Server port (mandatory);
