@@ -1,4 +1,4 @@
-package org.graylog.logging.sender;
+package dev.knebelhub.logging.sender;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -6,8 +6,8 @@ import java.net.Socket;
 import java.util.Objects;
 import java.util.logging.ErrorManager;
 
-import org.graylog.logging.payload.GelfPayload;
-import org.graylog.logging.payload.GelfPayloadResult;
+import dev.knebelhub.logging.payload.GelfPayload;
+import dev.knebelhub.logging.payload.GelfPayloadResult;
 
 public class GelfTCPSender implements GelfSender {
 	

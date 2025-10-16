@@ -1,4 +1,4 @@
-package org.graylog.logging.payload;
+package dev.knebelhub.logging.payload;
 
 import java.util.Objects;
 

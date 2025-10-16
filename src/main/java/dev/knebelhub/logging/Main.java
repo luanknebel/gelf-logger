@@ -1,4 +1,4 @@
-package org.graylog.logging;
+package dev.knebelhub.logging;
 
 import java.util.logging.Logger;
 

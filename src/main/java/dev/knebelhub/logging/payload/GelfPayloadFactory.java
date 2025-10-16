@@ -1,4 +1,4 @@
-package org.graylog.logging.payload;
+package dev.knebelhub.logging.payload;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -11,9 +11,9 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-import org.graylog.logging.util.LoggerUtil;
-
 import com.google.gson.Gson;
+
+import dev.knebelhub.logging.util.LoggerUtil;
 
 /**
  * 

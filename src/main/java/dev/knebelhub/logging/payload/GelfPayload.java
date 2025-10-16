@@ -1,4 +1,4 @@
-package org.graylog.logging.payload;
+package dev.knebelhub.logging.payload;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

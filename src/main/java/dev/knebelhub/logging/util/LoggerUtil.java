@@ -1,6 +1,6 @@
-package org.graylog.logging.util;
+package dev.knebelhub.logging.util;
 
-import org.graylog.logging.GelfLoggingHandler;
+import dev.knebelhub.logging.GelfLoggingHandler;
 
 /**
  * Logging internal information without Java Logger API

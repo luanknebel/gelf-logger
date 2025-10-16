@@ -1,9 +1,9 @@
-package org.graylog.logging.sender;
+package dev.knebelhub.logging.sender;
 
 import java.io.Closeable;
 
-import org.graylog.logging.payload.GelfPayload;
-import org.graylog.logging.payload.GelfPayloadResult;
+import dev.knebelhub.logging.payload.GelfPayload;
+import dev.knebelhub.logging.payload.GelfPayloadResult;
 
 /**
  * 

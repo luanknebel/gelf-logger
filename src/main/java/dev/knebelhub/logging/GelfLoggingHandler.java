@@ -1,4 +1,4 @@
-package org.graylog.logging;
+package dev.knebelhub.logging;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -8,15 +8,15 @@ import java.util.logging.ErrorManager;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
-import org.graylog.logging.payload.GelfPayload;
-import org.graylog.logging.payload.GelfPayloadFactory;
-import org.graylog.logging.payload.GelfPayloadResult;
-import org.graylog.logging.sender.GelfSender;
-import org.graylog.logging.sender.GelfSenderFactory;
-import org.graylog.logging.util.LoggerUtil;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import dev.knebelhub.logging.payload.GelfPayload;
+import dev.knebelhub.logging.payload.GelfPayloadFactory;
+import dev.knebelhub.logging.payload.GelfPayloadResult;
+import dev.knebelhub.logging.sender.GelfSender;
+import dev.knebelhub.logging.sender.GelfSenderFactory;
+import dev.knebelhub.logging.util.LoggerUtil;
 
 /**
  * 

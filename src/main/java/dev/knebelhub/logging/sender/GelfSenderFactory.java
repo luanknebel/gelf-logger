@@ -1,4 +1,4 @@
-package org.graylog.logging.sender;
+package dev.knebelhub.logging.sender;
 
 import java.util.Objects;
 
