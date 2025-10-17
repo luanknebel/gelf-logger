@@ -12,7 +12,8 @@ public class GelfMessageFactory {
 	public static GelfMessageStrategy getSender(String protocol, String host, int port) {
 
 		validateSenderProperties(host, port);
-
+		protocol = Objects.toString(protocol, "");
+		
 		return switch (protocol.toLowerCase()) {
 			case "udp" -> new GelfMessageUDPImpl(host, port);
 			case "tcp" -> new GelfMessageUDPImpl(host, port);
