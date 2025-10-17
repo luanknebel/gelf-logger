@@ -11,6 +11,7 @@
 
 	<name>gelf-logger</name>
 	<description>Graylog Extended Log Format (GELF) implementation for Java Logging API</description>
+	<url>https://github.com/luanknebel/gelf-logger</url>
 
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
@@ -18,14 +19,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-    <developers>
-        <developer>
-            <id>luanknebel</id>
-            <name>Luan Felipe Knebel</name>
-            <email>luankti@gmail.com</email>
-        </developer>
-    </developers>
-    
+	<developers>
+		<developer>
+			<id>luanknebel</id>
+			<name>Luan Felipe Knebel</name>
+			<email>luankti@gmail.com</email>
+		</developer>
+	</developers>
+
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -35,10 +36,10 @@
 	</licenses>
 
 	<scm>
-	    <connection>scm:git:https://github.com/luanknebel/gelf-logger.git</connection>
-	    <developerConnection>scm:git:git@github.com:luanknebel/gelf-logger.git</developerConnection>
-	    <url>https://github.com/luanknebel/gelf-logger</url>
-	    <tag>1.1.21</tag>
+		<connection>scm:git:https://github.com/luanknebel/gelf-logger.git</connection>
+		<developerConnection>scm:git:git@github.com:luanknebel/gelf-logger.git</developerConnection>
+		<url>https://github.com/luanknebel/gelf-logger</url>
+		<tag>1.1.21</tag>
 	</scm>
 
 	<dependencies>
@@ -57,29 +58,37 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-				</configuration>
-			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.2.5</version>
 			</plugin>
-	        <plugin>
-	          <groupId>org.sonatype.central</groupId>
-	          <artifactId>central-publishing-maven-plugin</artifactId>
-	          <version>0.9.0</version>
-	          <extensions>true</extensions>
-	          <configuration>
-	            <publishingServerId>maven-central</publishingServerId>
-	          </configuration>
-	        </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.12.0</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.9.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>maven-central</publishingServerId>
+				</configuration>
+			</plugin>
+			
 		</plugins>
 	</build>
 

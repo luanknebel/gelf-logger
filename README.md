@@ -45,6 +45,17 @@ mvn clean package
 
 ## How to use:
 
+ - Configure Maven dependency:
+ 
+ ```
+<dependency>
+	<groupId>dev.knebelhub</groupId>
+	<artifactId>gelf-logger</artifactId>
+	<version>1.1.21</version>
+</dependency>
+```
+ 
+
  - Example to usage:
  
  ```
