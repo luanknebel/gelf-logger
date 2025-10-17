@@ -14,14 +14,14 @@ import com.google.gson.reflect.TypeToken;
 import dev.knebelhub.logging.payload.GelfPayload;
 import dev.knebelhub.logging.payload.GelfPayloadFactory;
 import dev.knebelhub.logging.payload.GelfPayloadResult;
-import dev.knebelhub.logging.sender.GelfSender;
-import dev.knebelhub.logging.sender.GelfSenderFactory;
+import dev.knebelhub.logging.sender.GelfMessageStrategy;
+import dev.knebelhub.logging.sender.GelfMessageFactory;
 import dev.knebelhub.logging.util.LoggerUtil;
 
 /**
  * 
- * @author Luan Knebel
- * @date 13/10/2025
+ * @autor Luan Knebel
+ * @since Oct 17, 2025
  */
 public class GelfLoggingHandler extends Handler{
 	
@@ -30,7 +30,7 @@ public class GelfLoggingHandler extends Handler{
     private String instanceName;
     private String graylogProtocol;
     private Map<String, String> additonalFields;
-    private final AtomicReference<GelfSender> senderRef = new AtomicReference<>();
+    private final AtomicReference<GelfMessageStrategy> senderRef = new AtomicReference<>();
 
 	public void setGraylogHost(String graylogHost) {
 		this.graylogHost = graylogHost;
@@ -78,11 +78,11 @@ public class GelfLoggingHandler extends Handler{
 	@Override
 	public void publish(LogRecord record) {
 		
-        GelfSender sender = senderRef.updateAndGet(existing -> {
+        GelfMessageStrategy sender = senderRef.updateAndGet(existing -> {
             if (Objects.isNull(existing)) {
                 try {
                 	LoggerUtil.log("creating connection...");
-                    return GelfSenderFactory.getSender(graylogProtocol, graylogHost, graylogPort);
+                    return GelfMessageFactory.getSender(graylogProtocol, graylogHost, graylogPort);
                 } catch (Exception exception) {
                     throw new RuntimeException("Failed to initialize GelfSender", exception);
                 }
@@ -109,7 +109,7 @@ public class GelfLoggingHandler extends Handler{
 	@Override
 	public void close() throws SecurityException {
 		LoggerUtil.log("closing connection...");
-		GelfSender gelfSender = senderRef.get();
+		GelfMessageStrategy gelfSender = senderRef.get();
 		if(Objects.nonNull(gelfSender)) {
 			try {
 				gelfSender.close();

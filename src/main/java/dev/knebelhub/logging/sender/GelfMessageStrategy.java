@@ -7,10 +7,10 @@ import dev.knebelhub.logging.payload.GelfPayloadResult;
 
 /**
  * 
- * @author Luan Knebel
- * @date 13/10/2025
+ * @autor Luan Knebel
+ * @since Oct 17, 2025
  */
-public interface GelfSender extends Closeable{
+public interface GelfMessageStrategy extends Closeable{
 
 	public GelfPayloadResult sendMessage(GelfPayload message);
 	

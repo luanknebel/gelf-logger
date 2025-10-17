@@ -9,7 +9,12 @@ import java.util.logging.ErrorManager;
 import dev.knebelhub.logging.payload.GelfPayload;
 import dev.knebelhub.logging.payload.GelfPayloadResult;
 
-public class GelfTCPSender implements GelfSender {
+/**
+ * 
+ * @autor Luan Knebel
+ * @since Oct 17, 2025
+ */
+public class GelfMessageTCPImpl implements GelfMessageStrategy {
 	
 	private int port;
 	private String host;
@@ -17,10 +22,7 @@ public class GelfTCPSender implements GelfSender {
     private OutputStream outputStream;
     private boolean shutdown = false;
 
-    public GelfTCPSender() {
-    }
-
-	public GelfTCPSender(String host, int port) {
+	public GelfMessageTCPImpl(String host, int port) {
 		this.host = host;
 		this.port = port;
 		try {

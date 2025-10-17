@@ -13,10 +13,10 @@ import dev.knebelhub.logging.payload.GelfPayloadResult;
 
 /**
  * 
- * @author Luan Knebel
- * @date 13/10/2025
+ * @autor Luan Knebel
+ * @since Oct 17, 2025
  */
-public class GelfUDPSender implements GelfSender {
+public class GelfMessageUDPImpl implements GelfMessageStrategy {
 
 	private String host;
 	private int port;
@@ -26,10 +26,7 @@ public class GelfUDPSender implements GelfSender {
 	private static final int MAX_RETRIES = 5;
 	private static final int REFRESH_CHANNEL_SECONDS = 300;
 
-    public GelfUDPSender() {
-    }
-
-	public GelfUDPSender(String host, int port) {
+	public GelfMessageUDPImpl(String host, int port) {
 		this.host = host;
 		this.port = port;
 		setChannel(initiateChannel());

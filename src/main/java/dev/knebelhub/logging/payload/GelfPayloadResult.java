@@ -4,8 +4,8 @@ import java.util.Objects;
 
 /**
  * 
- * @author Luan Knebel
- * @date 13/10/2025
+ * @autor Luan Knebel
+ * @since Oct 17, 2025
  */
 public class GelfPayloadResult {
 
