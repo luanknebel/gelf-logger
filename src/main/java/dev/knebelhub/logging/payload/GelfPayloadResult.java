@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * 
- * @autor Luan Knebel
+ * @author Luan Knebel
  * @since Oct 17, 2025
  */
 public class GelfPayloadResult {

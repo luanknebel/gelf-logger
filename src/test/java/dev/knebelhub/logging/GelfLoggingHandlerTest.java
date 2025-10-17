@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Integration test with a localhost UPD Server
- * @autor Luan Knebel
+ * @author Luan Knebel
  * @since Oct 17, 2025
  */
 public class GelfLoggingHandlerTest {

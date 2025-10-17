@@ -4,7 +4,7 @@ import dev.knebelhub.logging.GelfLoggingHandler;
 
 /**
  * Logging internal information without Java Logger API
- * @autor Luan Knebel
+ * @author Luan Knebel
  * @since Oct 17, 2025
  */
 public class LoggerUtil {

@@ -17,7 +17,7 @@ import dev.knebelhub.logging.util.LoggerUtil;
 
 /**
  * 
- * @autor Luan Knebel
+ * @author Luan Knebel
  * @since Oct 17, 2025
  */
 public class GelfPayloadFactory {
