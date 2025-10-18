@@ -51,7 +51,7 @@ mvn clean package
 <dependency>
 	<groupId>dev.knebelhub</groupId>
 	<artifactId>gelf-logger</artifactId>
-	<version>1.1.21</version>
+	<version>1.1.22</version>
 </dependency>
 ```
  
