@@ -10,8 +10,7 @@
 	<packaging>jar</packaging>
 
 	<name>gelf-logger</name>
-	<description>Graylog Extended Log Format (GELF) implementation for Java
-		Logging API</description>
+	<description>Graylog Extended Log Format (GELF) implementation for Java Logging API</description>
 	<url>https://github.com/luanknebel/gelf-logger</url>
 
 	<properties>
