@@ -13,8 +13,6 @@ import java.util.logging.LogRecord;
 
 import com.google.gson.Gson;
 
-import dev.knebelhub.logging.util.LoggerUtil;
-
 /**
  * 
  * @author Luan Knebel
@@ -63,7 +61,6 @@ public class GelfPayloadFactory {
 			}
 			
 			String payload = new Gson().toJson(payloadMap);
-			LoggerUtil.log(payload);
 			return new GelfPayload(payload);
 		} catch (Exception exception) {
 			throw new RuntimeException("Failed to build GELF Payload", exception);
