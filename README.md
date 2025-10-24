@@ -23,12 +23,18 @@ Key features include:
 The available libraries use Log4J as the default GELF log appender (incompatible with more recent versions of JBoss custom-handlers).</br>
 I couldn't find any standard logging customization libraries compatible with the latest Wildfly/JBoss versions (>= 35) + JDK 21 for sending logs to Graylog servers, so I decided to implement a library that natively integrates with application servers using the Java Logging API so we could add custom log handlers for this purpose.
 
-## Compile Project:
+## Compile and Deploy Project:
 
 This project required Java >= 21
 
 ```
 mvn clean package
+```
+
+Deploy
+
+```
+mvn clean javadoc:javadoc source:jar install deploy -Prelease
 ```
 
 ## Property Configurations:
