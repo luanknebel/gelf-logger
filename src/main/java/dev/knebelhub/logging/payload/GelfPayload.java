@@ -2,7 +2,6 @@ package dev.knebelhub.logging.payload;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Random;
 import java.util.zip.GZIPOutputStream;
@@ -28,13 +27,8 @@ public class GelfPayload {
 	}
 	
     public ByteBuffer getTCPPayload() {
-        byte[] messageBytes;
-        try {
-            payload += '\0';
-            messageBytes = payload.getBytes("UTF-8");
-        } catch (Exception exception) {
-            throw new RuntimeException("No UTF-8 support available.", exception);
-        }
+    	payload += '\0';
+        byte[] messageBytes = getUTF8Bytes(payload);
         ByteBuffer buffer = ByteBuffer.allocate(messageBytes.length);
         buffer.put(messageBytes);
         buffer.flip();
@@ -42,12 +36,14 @@ public class GelfPayload {
     }
     
     public ByteBuffer[] getUDPPayload() {
-        byte[] messageBytes = gzipMessage(payload);
-        int diagrams_length = messageBytes.length / MAXIMUM_CHUNK_SIZE;
+        
+    	byte[] messageBytes = gzipMessage(payload);
+        int diagramsLength = messageBytes.length / MAXIMUM_CHUNK_SIZE;
         if (messageBytes.length % MAXIMUM_CHUNK_SIZE != 0) {
-            diagrams_length++;
+            diagramsLength++;
         }
-        ByteBuffer[] datagrams = new ByteBuffer[diagrams_length];
+        
+        ByteBuffer[] datagrams = new ByteBuffer[diagramsLength];
         if (messageBytes.length > MAXIMUM_CHUNK_SIZE) {
             sliceDatagrams(messageBytes, datagrams);
         } else {
@@ -59,25 +55,26 @@ public class GelfPayload {
     }
     
     private byte[] gzipMessage(String message) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            GZIPOutputStream stream = new GZIPOutputStream(bos);
-            byte[] bytes;
-            try {
-                bytes = message.getBytes("UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException("No UTF-8 support available.", e);
-            }
-            stream.write(bytes);
-            stream.finish();
-            stream.close();
-            byte[] zipped = bos.toByteArray();
-            bos.close();
-            return zipped;
+        
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        	 GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream);){
+            
+            byte[] bytes = getUTF8Bytes(message);
+            gzipOutputStream.write(bytes);
+            gzipOutputStream.finish();
+            return byteArrayOutputStream.toByteArray();
         } catch (IOException e) {
             return null;
         }
     }
+    
+    private byte[] getUTF8Bytes(String data) {
+        try {
+            return data.getBytes("UTF-8");
+        } catch (Exception e) {
+            throw new RuntimeException("No UTF-8 support available.", e);
+        }
+	} 
     
     private void sliceDatagrams(byte[] messageBytes, ByteBuffer[] datagrams) {
     	
