@@ -41,7 +41,7 @@ public class GelfLoggingHandlerTest {
 		handler.setGraylogHost("127.0.0.1");
 		handler.setGraylogPort(TEST_PORT);
 		handler.setInstanceName("test-instance");
-		handler.setInstanceName("key1=value1,key2=value2,key3=value3");
+		handler.setAdditionalFields("key1=value1,key2=value2,key3=value3");
 		logger.addHandler(handler);
 
 		udpServer = new DatagramSocket(TEST_PORT);
