@@ -43,10 +43,10 @@ mvn clean javadoc:javadoc source:jar install deploy -Prelease
  - **graylogHost**: Graylog Server Host/IP (mandatory);
  - **instanceName**: Custom field to identify the application name/instance (optional);
  - **graylogProtocol**: Protocol (tcp/udp) (default value is udp) (optional);
- - **additonalFields**: Additional fields supported by GELF protocol with simple key/value json format (optional):
+ - **additonalFields**: Additional fields supported by GELF protocol with simple key/value format (optional):
 
 ```
-{"key1":"value1","key2":"value2","key3":"value3"}
+"key1=value1,key2=value2,key3=value3"
 ```
 
 ## How to use:
@@ -77,7 +77,7 @@ public class Main {
 		handler.setGraylogPort(12201);
 		handler.setInstanceName("application-name");
 		handler.setGraylogProtocol("udp");
-		handler.setAdditionalFields("{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":\"value3\"}");
+		handler.setAdditionalFields("key1=value1,key2=value2,key3=value3");
 		logger.addHandler(handler);
 		logger.info("sending log message to graylog server");
 	}

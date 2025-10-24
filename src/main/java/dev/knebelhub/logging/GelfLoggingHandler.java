@@ -1,21 +1,19 @@
 package dev.knebelhub.logging;
 
-import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.ErrorManager;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import java.util.stream.Collectors;
 
 import dev.knebelhub.logging.payload.GelfPayload;
 import dev.knebelhub.logging.payload.GelfPayloadFactory;
 import dev.knebelhub.logging.payload.GelfPayloadResult;
-import dev.knebelhub.logging.sender.GelfMessageStrategy;
 import dev.knebelhub.logging.sender.GelfMessageFactory;
+import dev.knebelhub.logging.sender.GelfMessageStrategy;
 import dev.knebelhub.logging.util.LoggerUtil;
 
 /**
@@ -30,7 +28,7 @@ public class GelfLoggingHandler extends Handler{
     private String instanceName;
     private String graylogProtocol;
     private Map<String, String> additonalFields;
-    private final AtomicReference<GelfMessageStrategy> senderRef = new AtomicReference<>();
+    private final AtomicReference<GelfMessageStrategy> gelfMessageReference = new AtomicReference<>();
 
 	public void setGraylogHost(String graylogHost) {
 		this.graylogHost = graylogHost;
@@ -66,10 +64,14 @@ public class GelfLoggingHandler extends Handler{
 
 	public void setAdditionalFields(String additionalFields) {
 		if (Objects.nonNull(additionalFields)) {
-			Type type = new TypeToken<Map<String, String>>() {}.getType();
-			this.additonalFields = new Gson().fromJson(additionalFields, type);
-		}	
-    }
+			this.additonalFields = Arrays.stream(additionalFields.split(","))
+					.map(String::trim)
+					.filter(entry -> !entry.isEmpty())
+					.map(entry -> entry.split("=", 2))
+					.filter(parts -> parts.length == 2 && !parts[0].isBlank() && !parts[1].isBlank())
+					.collect(Collectors.toMap(parts -> parts[0].trim(), parts -> parts[1].trim(), (v1, v2) -> v1));
+		}
+	}
 
 	public Map<String, String> getAdditonalFields() {
 		return additonalFields;
@@ -78,13 +80,13 @@ public class GelfLoggingHandler extends Handler{
 	@Override
 	public void publish(LogRecord record) {
 		
-        GelfMessageStrategy sender = senderRef.updateAndGet(existing -> {
+        GelfMessageStrategy sender = gelfMessageReference.updateAndGet(existing -> {
             if (Objects.isNull(existing)) {
                 try {
-                	LoggerUtil.log("creating connection...");
+                	LoggerUtil.log("Creating graylog connection...");
                     return GelfMessageFactory.getSender(graylogProtocol, graylogHost, graylogPort);
                 } catch (Exception exception) {
-                    throw new RuntimeException("Failed to initialize GelfSender", exception);
+                    throw new RuntimeException("Failed to initialize sender", exception);
                 }
             }
             return existing;
@@ -108,13 +110,13 @@ public class GelfLoggingHandler extends Handler{
 
 	@Override
 	public void close() throws SecurityException {
-		LoggerUtil.log("closing connection...");
-		GelfMessageStrategy gelfSender = senderRef.get();
-		if(Objects.nonNull(gelfSender)) {
+		LoggerUtil.log("Closing graylog connection...");
+		GelfMessageStrategy gelfMessageStrategy = gelfMessageReference.get();
+		if(Objects.nonNull(gelfMessageStrategy)) {
 			try {
-				gelfSender.close();
+				gelfMessageStrategy.close();
 			} catch (Exception exception) {
-				reportError("Failed to close GelfSender", exception, ErrorManager.CLOSE_FAILURE);
+				reportError("Failed to close sender", exception, ErrorManager.CLOSE_FAILURE);
 			}
 		}
 	}
