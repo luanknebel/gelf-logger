@@ -25,6 +25,7 @@ public class GelfPayloadFactory {
     private static final int MAX_SHORT_MESSAGE_LENGTH = 250;
     private static final BigDecimal TIME_DIVISOR = new BigDecimal(1000);
     private static final String LOCALHOSTNAME = getLocalHostName();
+    private static final Gson GSON = new Gson();
 
 	public static GelfPayload makeMessage(LogRecord record, String instanceName, Map<String, String> additonalFields) {
 
@@ -60,7 +61,7 @@ public class GelfPayloadFactory {
 				}
 			}
 			
-			String payload = new Gson().toJson(payloadMap);
+			String payload = GSON.toJson(payloadMap);
 			return new GelfPayload(payload);
 		} catch (Exception exception) {
 			throw new RuntimeException("Failed to build GELF Payload", exception);
